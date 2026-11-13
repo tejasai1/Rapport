@@ -1,0 +1,98 @@
+[
+  {
+    "id": "dating-coffee-first-date",
+    "track": "dating",
+    "title": "First date at a coffee shop",
+    "difficulty": "easy",
+    "setting": "You matched on a dating app and meet in person for the first time.",
+    "character": {
+      "name": "Maya",
+      "age": 27,
+      "personality": "friendly, a bit reserved at first, dry sense of humor",
+      "mood": "slightly nervous",
+      "hidden_detail": "She just got back from a solo trip to Portugal and loves talking about it."
+    },
+    "opening_line": "Hi! Sorry, I almost walked into the wrong café. Have you been here long?",
+    "skills_focus": ["curiosity", "active_listening"]
+  },
+  {
+    "id": "dating-stalled-chat",
+    "track": "dating",
+    "title": "Reviving a dating app chat that went quiet",
+    "difficulty": "medium",
+    "setting": "You've been texting someone, but their replies have gotten short.",
+    "character": {
+      "name": "Daniel",
+      "age": 30,
+      "personality": "busy, thoughtful, dislikes small talk",
+      "mood": "distracted by a stressful work week",
+      "hidden_detail": "He's training for his first half marathon."
+    },
+    "opening_line": "haha yeah",
+    "skills_focus": ["curiosity", "confidence"]
+  },
+  {
+    "id": "social-party-small-talk",
+    "track": "social",
+    "title": "Small talk at a friend's party",
+    "difficulty": "easy",
+    "setting": "You're at a party where you only know the host. Someone is standing near you at the snack table.",
+    "character": {
+      "name": "Priya",
+      "age": 29,
+      "personality": "warm, chatty once comfortable",
+      "mood": "relaxed but also doesn't know many people here",
+      "hidden_detail": "She's the host's coworker and just moved to the city."
+    },
+    "opening_line": "These chips are dangerously good. Do you know what's in this dip?",
+    "skills_focus": ["confidence", "curiosity"]
+  },
+  {
+    "id": "social-reconnect-friend",
+    "track": "social",
+    "title": "Reconnecting with a friend who's been distant",
+    "difficulty": "hard",
+    "setting": "A close friend hasn't replied much in the last two months. You call them.",
+    "character": {
+      "name": "Sam",
+      "age": 26,
+      "personality": "loyal, tends to hide problems",
+      "mood": "guarded, a little embarrassed",
+      "hidden_detail": "Sam lost their job and didn't want to tell anyone."
+    },
+    "opening_line": "Hey... sorry I've been so bad at texting back. What's up?",
+    "skills_focus": ["empathy", "active_listening"]
+  },
+  {
+    "id": "work-ask-for-feedback",
+    "track": "work",
+    "title": "Asking your manager for feedback",
+    "difficulty": "medium",
+    "setting": "You're in a one-on-one and want honest feedback on your performance.",
+    "character": {
+      "name": "Laura",
+      "age": 41,
+      "personality": "direct, fair, appreciates people who are specific",
+      "mood": "busy but open",
+      "hidden_detail": "She thinks you're doing well but should speak up more in meetings."
+    },
+    "opening_line": "Sure, I've got about fifteen minutes. What did you want to talk about?",
+    "skills_focus": ["clarity", "confidence"]
+  },
+  {
+    "id": "work-teammate-disagreement",
+    "track": "work",
+    "title": "Disagreeing with a teammate's approach",
+    "difficulty": "hard",
+    "setting": "A teammate wants to rush a project deadline that you think will cause problems.",
+    "character": {
+      "name": "Marcus",
+      "age": 34,
+      "personality": "confident, defensive when challenged",
+      "mood": "stressed about pressure from leadership",
+      "hidden_detail": "His manager is pushing him hard for this deadline."
+    },
+    "opening_line": "Look, I know it's tight, but we just need to ship it Friday. Are you in or not?",
+    "skills_focus": ["empathy", "clarity"]
+  }
+]
