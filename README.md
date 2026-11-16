@@ -25,7 +25,7 @@ Rapport works like a gym for conversations:
 ## Tech stack (planned)
 - Frontend: Next.js
 - Backend: FastAPI (Python)
-- AI: LLM API for characters and feedback; Whisper + TTS for voice mode
+- AI: Meta Model API (Muse Spark) for characters and feedback
 - Database and auth: Supabase
 
 ## Status
