@@ -1,7 +1,12 @@
 import json
 from pathlib import Path
+from typing import Literal
 
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
+
+from character import load_scenario
+from llm import get_character_reply
 
 app = FastAPI(title="Rapport API")
 
@@ -38,3 +43,40 @@ def get_scenario(scenario_id: str):
         if s["id"] == scenario_id:
             return public_view(s)
     raise HTTPException(status_code=404, detail="Scenario not found")
+
+
+# ---------- Chat ----------
+
+class ChatMessage(BaseModel):
+    # Only user and assistant messages are allowed; the system prompt is always built here
+    role: Literal["user", "assistant"]
+    content: str = Field(min_length=1, max_length=2000)
+
+
+class ChatRequest(BaseModel):
+    scenario_id: str
+    messages: list[ChatMessage] = Field(min_length=1, max_length=40)
+
+
+class ChatResponse(BaseModel):
+    reply: str
+
+
+@app.post("/chat", response_model=ChatResponse)
+def chat(request: ChatRequest):
+    try:
+        scenario = load_scenario(request.scenario_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Scenario not found")
+
+    if request.messages[-1].role != "user":
+        raise HTTPException(status_code=400, detail="The last message must be from the user")
+
+    history = [m.model_dump() for m in request.messages]
+    try:
+        reply = get_character_reply(scenario, history)
+    except Exception as e:
+        print(f"AI error: {e}")
+        raise HTTPException(status_code=502, detail="The AI service didn't respond. Please try again.")
+
+    return ChatResponse(reply=reply)
