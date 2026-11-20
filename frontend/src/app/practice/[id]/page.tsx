@@ -61,6 +61,8 @@ function PracticeChat() {
   }
 
   function handleEnd() {
+    // Clear any report from a previous session of this scenario
+    sessionStorage.removeItem(`rapport-feedback-${id}`);
     // Hand the conversation to the feedback page (built in Step 10)
     sessionStorage.setItem(`rapport-session-${id}`, JSON.stringify(messages));
     router.push(`/practice/${id}/feedback`);

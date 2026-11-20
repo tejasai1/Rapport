@@ -13,3 +13,4 @@ export const SKILL_TIPS: Record<string, string> = {
   empathy: "Notice how they seem to feel and respond to it kindly.",
   clarity: "Say what you mean simply, in one or two sentences.",
 };
+export const SKILL_ORDER = ["active_listening", "curiosity", "confidence", "empathy", "clarity"] as const;

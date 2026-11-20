@@ -44,3 +44,27 @@ export async function sendChatMessage(scenarioId: string, messages: ChatMessage[
   const data: { reply: string } = await res.json();
   return data.reply;
 }
+export type FeedbackResult = {
+  scores: {
+    active_listening: number;
+    curiosity: number;
+    confidence: number;
+    empathy: number;
+    clarity: number;
+  };
+  did_well: { point: string; quote: string };
+  to_improve: { point: string; quote: string; better_example: string };
+  discovered_hidden_detail: boolean;
+  red_flags: string[];
+  summary: string;
+};
+
+export async function getFeedback(scenarioId: string, messages: ChatMessage[]): Promise<FeedbackResult> {
+  const res = await fetch(`${API_URL}/feedback`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ scenario_id: scenarioId, messages }),
+  });
+  if (!res.ok) throw new Error(`Feedback failed (${res.status})`);
+  return res.json();
+}
