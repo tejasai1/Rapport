@@ -50,6 +50,13 @@ def list_scenarios():
         }
         for s in load_scenarios()
     ]
+
+@app.get("/scenarios/{scenario_id}")
+def get_scenario(scenario_id: str):
+    for s in load_scenarios():
+        if s["id"] == scenario_id:
+            return public_view(s)
+    raise HTTPException(status_code=404, detail="Scenario not found")
 # ---------- Chat ----------
 
 class ChatMessage(BaseModel):

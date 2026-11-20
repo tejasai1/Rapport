@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
 import "./globals.css";
+import { Suspense } from "react";
 
 const heading = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-heading" });
 const body = Inter({ subsets: ["latin"], variable: "--font-body" });
@@ -16,7 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${heading.variable} ${body.variable}`}>
       <body>
         <div className="shell">
-          <Sidebar />
+          <Suspense fallback={<nav className="sidebar" aria-label="Main" />}>
+            <Sidebar />
+          </Suspense>
           <main className="content">{children}</main>
         </div>
       </body>

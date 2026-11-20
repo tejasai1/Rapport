@@ -70,6 +70,50 @@ h1, h2 { margin: 0; font-family: var(--font-heading), sans-serif; font-weight: 7
 .muted { margin: 0; color: var(--muted); }
 .error { margin: 0; padding: 12px 16px; border-radius: 10px; background: #FDECEF; color: #9F1239; }
 
+/* Practice chat */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.text-link { font-size: 14px; color: var(--muted); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.chat-layout { max-width: 1100px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+.chat-panel { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; border-radius: 18px; background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+.chat-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 22px; border-bottom: 1px solid #EDEAE4; }
+.chat-person { display: flex; align-items: center; gap: 12px; }
+.avatar-lg { width: 44px; height: 44px; font-size: 17px; }
+.chat-name { margin: 0; font-family: var(--font-heading), sans-serif; font-size: 19px; font-weight: 700; }
+.chat-sub { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+
+.chat-messages { height: min(60vh, 560px); overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 24px 22px; background: #FBFAF8; }
+.chat-setting { margin: 0 auto 4px; font-size: 13px; color: var(--muted); text-align: center; }
+.bubble { max-width: 74%; padding: 12px 16px; font-size: 15px; line-height: 1.5; white-space: pre-wrap; }
+.bubble.them { align-self: flex-start; background: var(--chip); border-radius: 4px 16px 16px 16px; }
+.bubble.me { align-self: flex-end; background: var(--teal); color: #FFFFFF; border-radius: 16px 4px 16px 16px; }
+
+.typing { display: flex; gap: 5px; padding: 14px 16px; }
+.typing span { width: 7px; height: 7px; border-radius: 999px; background: #8C8A94; animation: typing-blink 1.2s infinite ease-in-out; }
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-blink { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+
+.chat-error { margin: 12px 22px 0; }
+.chat-form { display: flex; gap: 10px; align-items: center; padding: 16px 22px; border-top: 1px solid #EDEAE4; }
+.chat-form input { flex: 1 1 auto; min-width: 0; min-height: 46px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--ink); font: 400 15px var(--font-body), sans-serif; }
+.chat-form input:focus { outline: 2px solid var(--teal); outline-offset: 1px; }
+.send-button { flex: none; width: 46px; height: 46px; border-radius: 12px; border: none; background: var(--teal); color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+
+.chat-side { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.side-card { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); }
+.muted-eyebrow { color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { padding: 6px 12px; border-radius: 999px; background: var(--teal-soft); color: var(--teal-dark); font-size: 13px; font-weight: 600; }
+.small-muted { margin: 0; font-size: 13px; color: var(--muted); }
+.progress-block { display: flex; flex-direction: column; gap: 6px; }
+.bar { height: 8px; border-radius: 999px; background: #EDEAE4; overflow: hidden; }
+.bar-fill { height: 8px; background: var(--teal); transition: width 0.3s; }
+.hint { margin: 0; font-size: 14px; line-height: 1.5; color: var(--text-soft); }
+.button-secondary { min-height: 44px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--ink); font: 600 15px var(--font-body), sans-serif; cursor: pointer; }
+.button-dark { min-height: 48px; border-radius: 12px; border: none; background: var(--ink); color: #FFFFFF; font: 600 15px var(--font-body), sans-serif; cursor: pointer; }
+
 /* Phones */
 @media (max-width: 640px) {
   .content { padding: 24px 16px 40px; }

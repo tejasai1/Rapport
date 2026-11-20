@@ -3,16 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getScenarios, type ScenarioSummary } from "@/lib/api";
+import { SKILL_LABELS } from "@/lib/skills";
 
 const TRACKS = ["all", "dating", "social", "work"];
 
-const SKILL_LABELS: Record<string, string> = {
-  active_listening: "Active listening",
-  curiosity: "Curiosity",
-  confidence: "Confidence",
-  empathy: "Empathy",
-  clarity: "Clarity",
-};
+
 
 const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 

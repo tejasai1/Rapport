@@ -24,7 +24,11 @@ export default function Sidebar() {
           <Link
             key={link.href}
             href={link.href}
-            className={pathname === link.href ? "nav-link active" : "nav-link"}
+            className={
+              pathname === link.href || (link.href === "/" && pathname.startsWith("/practice"))
+                ? "nav-link active"
+                : "nav-link"
+            }
           >
             {link.label}
           </Link>
