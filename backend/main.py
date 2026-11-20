@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from character import load_scenario
@@ -10,7 +11,12 @@ from llm import get_character_reply
 from feedback import Feedback, generate_feedback
 
 app = FastAPI(title="Rapport API")
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "scenarios.json"
 
 
@@ -33,19 +39,17 @@ def health():
 @app.get("/scenarios")
 def list_scenarios():
     return [
-        {k: s[k] for k in ("id", "track", "title", "difficulty", "setting")}
+        {
+            "id": s["id"],
+            "track": s["track"],
+            "title": s["title"],
+            "difficulty": s["difficulty"],
+            "setting": s["setting"],
+            "character": f"{s['character']['name']}, {s['character']['age']}",
+            "skills_focus": s["skills_focus"],
+        }
         for s in load_scenarios()
     ]
-
-
-@app.get("/scenarios/{scenario_id}")
-def get_scenario(scenario_id: str):
-    for s in load_scenarios():
-        if s["id"] == scenario_id:
-            return public_view(s)
-    raise HTTPException(status_code=404, detail="Scenario not found")
-
-
 # ---------- Chat ----------
 
 class ChatMessage(BaseModel):
