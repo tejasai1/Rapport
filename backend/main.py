@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 from character import load_scenario
 from llm import get_character_reply
 from feedback import Feedback, generate_feedback
+from db import delete_all_sessions, init_db, list_sessions, save_session
 
 app = FastAPI(title="Rapport API")
 app.add_middleware(
@@ -17,6 +18,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+init_db()
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "scenarios.json"
 
 
@@ -115,7 +117,28 @@ def feedback(request: FeedbackRequest):
 
     history = [m.model_dump() for m in request.messages]
     try:
-        return generate_feedback(scenario, history)
+        result = generate_feedback(scenario, history)
     except Exception as e:
         print(f"Feedback error: {e}")
         raise HTTPException(status_code=502, detail="Couldn't generate feedback. Please try again.")
+
+    save_session(request.scenario_id, history, result.model_dump())
+    return result
+
+
+# ---------- Sessions ----------
+
+@app.get("/sessions")
+def get_sessions():
+    scenarios = {s["id"]: s for s in load_scenarios()}
+    sessions = list_sessions()
+    for s in sessions:
+        scenario = scenarios.get(s["scenario_id"], {})
+        s["title"] = scenario.get("title", s["scenario_id"])
+        s["track"] = scenario.get("track", "")
+    return sessions
+
+
+@app.delete("/sessions")
+def clear_sessions():
+    return {"deleted": delete_all_sessions()}
