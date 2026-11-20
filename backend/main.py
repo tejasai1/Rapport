@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 
 from character import load_scenario
 from llm import get_character_reply
+from feedback import Feedback, generate_feedback
 
 app = FastAPI(title="Rapport API")
 
@@ -80,3 +81,30 @@ def chat(request: ChatRequest):
         raise HTTPException(status_code=502, detail="The AI service didn't respond. Please try again.")
 
     return ChatResponse(reply=reply)
+# ---------- Feedback ----------
+
+class FeedbackRequest(BaseModel):
+    scenario_id: str
+    messages: list[ChatMessage] = Field(min_length=1, max_length=40)
+
+
+@app.post("/feedback", response_model=Feedback)
+def feedback(request: FeedbackRequest):
+    try:
+        scenario = load_scenario(request.scenario_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Scenario not found")
+
+    user_turns = sum(1 for m in request.messages if m.role == "user")
+    if user_turns < 3:
+        raise HTTPException(
+            status_code=400,
+            detail="Send at least 3 messages in the conversation before asking for feedback",
+        )
+
+    history = [m.model_dump() for m in request.messages]
+    try:
+        return generate_feedback(scenario, history)
+    except Exception as e:
+        print(f"Feedback error: {e}")
+        raise HTTPException(status_code=502, detail="Couldn't generate feedback. Please try again.")
